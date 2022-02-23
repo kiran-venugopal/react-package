@@ -2,7 +2,7 @@ const path = require("path");
 
 module.exports = {
   mode: "production",
-  entry: "./src/index.js",
+  entry: "./src/index.tsx",
   context: __dirname,
   output: {
     library: {
@@ -13,9 +13,14 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js?$/,
+        test: /\.(js|jsx)$/,
         exclude: /(node_modules)/,
         use: "babel-loader",
+      },
+      {
+        test: /\.(ts|tsx)$/,
+        exclude: /node_modules/,
+        use: ["ts-loader"],
       },
       {
         test: /\.css$/,
@@ -40,6 +45,8 @@ module.exports = {
       react: path.resolve(__dirname, "./node_modules/react"),
       "react-dom": path.resolve(__dirname, "./node_modules/react-dom"),
     },
+
+    extensions: [".tsx", ".ts", ".js"],
   },
   externals: {
     // Don't bundle react or react-dom
