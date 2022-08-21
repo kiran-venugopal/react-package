@@ -9,35 +9,28 @@
   ],
   "license": "MIT",
   "scripts": {
-    "build": "webpack",
-    "start": "webpack serve"
+    "build": "npm run ts && webpack",
+    "start": "webpack serve",
+    "ts": "tsc --emitDeclarationOnly"
   },
   "author": "Kiran V",
   "peerDependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
-  "dependencies": {
-    "@babel/core": "^7.17.2",
-    "@babel/preset-env": "^7.16.11",
-    "@babel/preset-react": "^7.16.7",
-    "@babel/preset-stage-0": "^7.8.3",
-    "babel-loader": "^8.2.3",
-    "babel-plugin-lodash": "^3.3.2",
-    "babel-plugin-react-transform": "^3.0.0",
-    "css-loader": "^6.6.0",
-    "style-loader": "^3.3.1",
-    "webpack": "^5.68.0",
-    "webpack-cli": "^4.9.2"
-  },
   "devDependencies": {
     "@svgr/webpack": "^6.2.1",
-    "esbuild-loader": "^2.19.0",
     "@types/react": "^17.0.39",
     "@types/react-dom": "^17.0.11",
+    "css-loader": "^6.6.0",
+    "esbuild-loader": "^2.19.0",
     "file-loader": "^6.2.0",
-    "ts-loader": "^9.2.6",
+    "style-loader": "^3.3.1",
+    "tsc": "^2.0.4",
+    "typescript": "^4.7.4",
     "url-loader": "^4.1.1",
+    "webpack": "^5.68.0",
+    "webpack-cli": "^4.9.2",
     "webpack-dev-server": "^4.7.4"
   }
 }

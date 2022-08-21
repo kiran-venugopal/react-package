@@ -1,4 +1,4 @@
-const path = require("path");
+const TerserPlugin = require("terser-webpack-plugin");
 
 module.exports = {
   mode: "production",
@@ -13,22 +13,32 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.tsx?$/,
+        test: /\.(js|jsx|tsx|ts)$/,
+        exclude: /node_modules/,
         loader: "esbuild-loader",
         options: {
-          loader: "tsx", // Or 'ts' if you don't need tsx
+          loader: "tsx",
           target: "es2015",
         },
       },
       {
         test: /\.css$/,
-        use: ["style-loader", "css-loader"],
+        use: [
+          "style-loader",
+          "css-loader",
+          {
+            loader: "esbuild-loader",
+            options: {
+              loader: "css",
+              minify: true,
+            },
+          },
+        ],
       },
       {
         test: /\.svg$/,
         use: ["@svgr/webpack", "url-loader"],
       },
-
       {
         test: /\.(png|jpe?g|gif)$/i,
         loader: "file-loader",
@@ -37,14 +47,6 @@ module.exports = {
         },
       },
     ],
-  },
-  resolve: {
-    alias: {
-      react: path.resolve(__dirname, "./node_modules/react"),
-      "react-dom": path.resolve(__dirname, "./node_modules/react-dom"),
-    },
-
-    extensions: [".tsx", ".ts", ".js"],
   },
   externals: {
     // Don't bundle react or react-dom
@@ -60,5 +62,19 @@ module.exports = {
       amd: "ReactDOM",
       root: "ReactDOM",
     },
+  },
+  optimization: {
+    minimize: true,
+    minimizer: [
+      // to avoid creating LICENSE.txt
+      new TerserPlugin({
+        terserOptions: {
+          format: {
+            comments: false,
+          },
+        },
+        extractComments: false,
+      }),
+    ],
   },
 };
